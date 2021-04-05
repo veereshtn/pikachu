@@ -1,0 +1,335 @@
+syntax = "proto3";
+
+package service;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+
+option go_package = "pikachu/pkg/pb;pb";
+
+
+enum Status {
+    unknown_status = 0;
+    active = 1;
+    inactive = 2;
+}
+
+enum Gender {
+    unknown_gender = 0;
+    male = 3;
+    female = 1;
+    diverse = 2;
+}
+
+enum IdentityType {
+    unknown_identity_type = 0;
+    email = 2;
+    phone = 1;
+}
+
+enum Relation {
+    unknown_relation = 0;
+    husband = 6;
+    father = 1;
+    mother = 2;
+    son = 3;
+    daughter = 4;
+    wife = 5;
+}
+
+message UserDto {
+    string first_name = 1;
+    string last_name = 2;
+    google.protobuf.Timestamp date_of_birth = 3;
+    int64 age = 4;
+    double height = 5;
+    double weight = 6;
+    Gender gender = 7;
+    Status status = 8;
+    string external_id = 9;
+}
+
+message AddressDto {
+    string line1 = 1;
+    string line2 = 2;
+    string zip_code = 3;
+    string state = 4;
+    string country = 5;
+}
+
+message IdentityDto {
+    IdentityType identity_type = 1;
+    string identity_value = 2;
+    Status status = 3;
+    string external_id = 4;
+}
+
+message RelationDto {
+    Status status = 1;
+    Relation relation = 3;
+    string user_id = 4;
+}
+
+message UserRelationDto {
+    UserDto user = 1;
+    RelationDto user_relation = 2;
+}
+
+message LinkRelationRequest {
+    string user_id = 1;
+    UserRelationDto user_relation = 2;
+}
+
+message LinkRelationResponse {
+    RelationDto patient = 1;
+}
+
+message UnlinkRelationRequest {
+    string user_id = 1;
+    string relation_id = 2;
+}
+
+message UnlinkRelationResponse {
+
+}
+
+message CreateUserRequest {
+    UserDto payload = 1;
+}
+
+message UserOperationResponse {
+    UserDto response = 1;
+}
+
+message GetUserByExternalIdRequest {
+    string user_id = 1;
+}
+
+message GetUserByInternalIdRequest {
+    int64 user_id = 1;
+}
+
+message GetUserByIdResponse {
+    UserDto response = 1;
+}
+
+message UpdateUserRequest {
+    UserDto payload = 1;
+    string user_id = 2;
+}
+
+message UpdateUserResponse {
+    UserDto response = 1;
+}
+
+message MultiGetUsersByExternalIdRequest {
+    repeated string user_ids = 1;
+}
+
+message MultiGetUsersByInternalIdRequest {
+    repeated int64 user_ids = 1;
+}
+
+message MultiGetUsersResponse {
+    repeated UserDto response = 1;
+}
+
+message CreateUserIdentityRequest {
+    string user_id = 1;
+    IdentityDto payload = 2;
+}
+
+message CreateUserIdentityResponse {
+    IdentityDto response = 1;
+}
+
+message UpdateUserIdentityRequest {
+    string user_id = 1;
+    string user_identity_id = 2;
+    IdentityDto payload = 3;
+}
+
+message UpdateUserIdentityResponse {
+    IdentityDto response = 1;
+}
+
+message GetUserIdentityRequest {
+    string user_id = 1;
+    string user_identity_id = 2;
+}
+
+message GetUserIdentityResponse {
+    IdentityDto response = 1;
+}
+
+message MultiGetUserIdentityRequest {
+    string user_id = 1;
+}
+
+message MultiGetUserIdentityResponse {
+    repeated IdentityDto response = 1;
+}
+
+message GetUserIdentitiesRequest {
+    string user_id = 1;
+}
+
+message GetUserIdentitiesResponse {
+    repeated IdentityDto response = 1;
+}
+
+message CreateUserAddressRequest {
+    string user_id = 1;
+    AddressDto payload = 2;
+}
+
+message CreateUserAddressResponse {
+    AddressDto response = 1;
+}
+
+message GetUserAddressesRequest {
+    string user_id = 1;
+}
+
+message GetUserAddressesResponse {
+    repeated AddressDto addresses = 1;
+}
+
+message UpdateUserAddressRequest {
+    string user_id = 1;
+    string address_id = 2;
+    AddressDto payload = 3;
+}
+
+message UpdateUserAddressResponse {
+    AddressDto address = 1;
+}
+
+message CreateUserRelationRequest {
+    string user_id = 1;
+    RelationDto payload = 2;
+}
+
+message CreateUserRelationResponse {
+    RelationDto relation = 1;
+}
+
+message GetUserRelationsRequest {
+    string user_id = 1;
+}
+
+message GetUserRelationsResponse {
+    repeated RelationDto relations = 1;
+}
+
+message DeleteUserRelationRequest {
+    string user_id = 1;
+    string relation_id = 2;
+}
+
+message DeleteUserRelationResponse {
+    RelationDto relation = 1;
+}
+
+service UserService {
+
+    rpc CreateUser (CreateUserRequest) returns (UserOperationResponse) {
+        option (google.api.http) = {
+            post: "/users"
+            body: "payload"
+        };
+    }
+
+    rpc UpdateUser (UpdateUserRequest) returns (UserOperationResponse) {
+        option (google.api.http) = {
+            patch: "/users/{user_id}"
+            body: "payload"
+        };
+    }
+
+    rpc GetUserByExternalId (GetUserByExternalIdRequest) returns (UserOperationResponse) {
+        option (google.api.http) = {
+            get: "/users/{user_id}"
+        };
+    }
+
+    rpc MultiGetUsersByExternalId (MultiGetUsersByExternalIdRequest) returns (MultiGetUsersResponse) {
+        option (google.api.http) = {
+            put: "/users/multi-get"
+            body: "*"
+        };
+    }
+}
+
+service UserIdentityService {
+
+    rpc CreateUserIdentity (CreateUserIdentityRequest) returns (CreateUserIdentityResponse) {
+        option (google.api.http) = {
+            post: "/users/{user_id}/identities"
+            body: "payload"
+        };
+    }
+
+    rpc GetUserIdentities (GetUserIdentitiesRequest) returns (GetUserIdentitiesResponse) {
+        option (google.api.http) = {
+            get: "/users/{user_id}/identities"
+        };
+    }
+
+    rpc UpdateUserIdentity (UpdateUserIdentityRequest) returns (UpdateUserIdentityResponse) {
+        option (google.api.http) = {
+            patch: "/users/{user_id}/identities/{user_identity_id}"
+            body: "payload"
+        };
+    }
+
+}
+
+
+service UserAddressService {
+
+    rpc CreateUserAddress (CreateUserAddressRequest) returns (CreateUserAddressResponse) {
+        option (google.api.http) = {
+            post: "/users/{user_id}/addresses"
+            body: "payload"
+        };
+    }
+
+    rpc GetUserAddresses (GetUserAddressesRequest) returns (GetUserAddressesResponse) {
+        option (google.api.http) = {
+        get: "/users/{user_id}/addresses"
+        };
+    }
+
+    rpc UpdateUserAddress (UpdateUserAddressRequest) returns (UpdateUserAddressResponse) {
+        option (google.api.http) = {
+            put: "/users/{user_id}/addresses/{address_id}"
+            body: "payload"
+        };
+
+    }
+}
+
+
+service UserPatientService {
+    rpc CreateUserRelation (LinkRelationRequest) returns (LinkRelationResponse) {
+        option (google.api.http) = {
+            post: "/users/{user_id}/relations"
+            body: "user_relation"
+        };
+    }
+
+    rpc GetUserRelations (GetUserRelationsRequest) returns (GetUserRelationsResponse) {
+        option (google.api.http) = {
+            get: "/users/{user_id}/relations"
+        };
+    }
+
+    rpc DeleteUserRelation (UnlinkRelationRequest) returns (UnlinkRelationResponse) {
+        option (google.api.http) = {
+           delete: "/users/{user_id}/relations/{relation_id}"
+           body: "*"
+        };
+    }
+}

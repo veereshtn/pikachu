@@ -1,0 +1,480 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "title": "pikachu/pkg/pb/service.proto",
+    "version": "version not set"
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "UserService"
+        ],
+        "operationId": "UserServiceCreateUser",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/serviceUserDto"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/users/multi-get": {
+      "put": {
+        "tags": [
+          "UserService"
+        ],
+        "operationId": "UserServiceMultiGetUsersByExternalId",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/serviceMultiGetUsersByExternalIdRequest"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": [
+          "UserService"
+        ],
+        "operationId": "UserServiceGetUserByExternalId",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {}
+      },
+      "patch": {
+        "tags": [
+          "UserService"
+        ],
+        "operationId": "UserServiceUpdateUser",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/serviceUserDto"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/users/{user_id}/addresses": {
+      "get": {
+        "tags": [
+          "UserAddressService"
+        ],
+        "operationId": "UserAddressServiceGetUserAddresses",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {}
+      },
+      "post": {
+        "tags": [
+          "UserAddressService"
+        ],
+        "operationId": "UserAddressServiceCreateUserAddress",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/serviceAddressDto"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/users/{user_id}/addresses/{address_id}": {
+      "put": {
+        "tags": [
+          "UserAddressService"
+        ],
+        "operationId": "UserAddressServiceUpdateUserAddress",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "address_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/serviceAddressDto"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/users/{user_id}/identities": {
+      "get": {
+        "tags": [
+          "UserIdentityService"
+        ],
+        "operationId": "UserIdentityServiceGetUserIdentities",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {}
+      },
+      "post": {
+        "tags": [
+          "UserIdentityService"
+        ],
+        "operationId": "UserIdentityServiceCreateUserIdentity",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/serviceIdentityDto"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/users/{user_id}/identities/{user_identity_id}": {
+      "put": {
+        "tags": [
+          "UserIdentityService"
+        ],
+        "operationId": "UserIdentityServiceUpdateUserIdentity",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "user_identity_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/serviceIdentityDto"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/users/{user_id}/relations": {
+      "get": {
+        "tags": [
+          "UserPatientService"
+        ],
+        "operationId": "UserPatientServiceGetUserRelations",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {}
+      },
+      "post": {
+        "tags": [
+          "UserPatientService"
+        ],
+        "operationId": "UserPatientServiceCreateUserRelation",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/serviceUserRelationDto"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/users/{user_id}/relations/{relation_id}": {
+      "delete": {
+        "tags": [
+          "UserPatientService"
+        ],
+        "operationId": "UserPatientServiceDeleteUserRelation",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "relation_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/serviceUnlinkRelationRequest"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    }
+  },
+  "definitions": {
+    "serviceAddressDto": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "string"
+        },
+        "line1": {
+          "type": "string"
+        },
+        "line2": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "zip_code": {
+          "type": "string"
+        }
+      }
+    },
+    "serviceGender": {
+      "type": "string",
+      "default": "unknown_gender",
+      "enum": [
+        "unknown_gender",
+        "male",
+        "female",
+        "diverse"
+      ]
+    },
+    "serviceIdentityDto": {
+      "type": "object",
+      "properties": {
+        "external_id": {
+          "type": "string"
+        },
+        "identity_type": {
+          "$ref": "#/definitions/serviceIdentityType"
+        },
+        "identity_value": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/serviceStatus"
+        }
+      }
+    },
+    "serviceIdentityType": {
+      "type": "string",
+      "default": "unknown_identity_type",
+      "enum": [
+        "unknown_identity_type",
+        "email",
+        "phone"
+      ]
+    },
+    "serviceMultiGetUsersByExternalIdRequest": {
+      "type": "object",
+      "properties": {
+        "user_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "serviceRelation": {
+      "type": "string",
+      "default": "unknown_relation",
+      "enum": [
+        "unknown_relation",
+        "husband",
+        "father",
+        "mother",
+        "son",
+        "daughter",
+        "wife"
+      ]
+    },
+    "serviceRelationDto": {
+      "type": "object",
+      "properties": {
+        "display_order": {
+          "type": "string",
+          "format": "int64"
+        },
+        "patient_id": {
+          "type": "string"
+        },
+        "relation": {
+          "$ref": "#/definitions/serviceRelation"
+        },
+        "status": {
+          "$ref": "#/definitions/serviceStatus"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      }
+    },
+    "serviceStatus": {
+      "type": "string",
+      "default": "unknown_status",
+      "enum": [
+        "unknown_status",
+        "active",
+        "inactive"
+      ]
+    },
+    "serviceUnlinkRelationRequest": {
+      "type": "object",
+      "properties": {
+        "relation_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      }
+    },
+    "serviceUserDto": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "string",
+          "format": "int64"
+        },
+        "date_of_birth": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "external_id": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "gender": {
+          "$ref": "#/definitions/serviceGender"
+        },
+        "height": {
+          "type": "number",
+          "format": "double"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/serviceStatus"
+        },
+        "weight": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "serviceUserRelationDto": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/serviceUserDto"
+        },
+        "user_relation": {
+          "$ref": "#/definitions/serviceRelationDto"
+        }
+      }
+    }
+  }
+}
