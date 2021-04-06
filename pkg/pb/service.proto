@@ -260,9 +260,6 @@ service UserService {
             body: "*"
         };
     }
-}
-
-service UserIdentityService {
 
     rpc CreateUserIdentity (CreateUserIdentityRequest) returns (CreateUserIdentityResponse) {
         option (google.api.http) = {
@@ -283,7 +280,6 @@ service UserIdentityService {
             body: "payload"
         };
     }
-
 }
 
 

@@ -35,7 +35,6 @@ func main() {
 
 	go func() { doneC <- ServeExternal(logger) }()
 
-
 	if err := <-doneC; err != nil {
 		logger.Fatal(err)
 	}
@@ -100,7 +99,7 @@ func ServeInternal(logger *logrus.Logger) error {
 
 // ServeExternal builds and runs the server that listens on ServerAddress and GatewayAddress
 func ServeExternal(logger *logrus.Logger) error {
-	
+
 	if viper.GetString("database.dsn") == "" {
 		setDBConnection()
 	}
@@ -119,7 +118,7 @@ func ServeExternal(logger *logrus.Logger) error {
 					requestid.DefaultRequestIDKey)),
 			),
 			gateway.WithServerAddress(fmt.Sprintf("%s:%s", viper.GetString("server.address"), viper.GetString("server.port"))),
-			gateway.WithEndpointRegistration(viper.GetString("gateway.endpoint"), pb.RegisterUserServiceHandlerFromEndpoint, pb.RegisterUserIdentityServiceHandlerFromEndpoint),
+			gateway.WithEndpointRegistration(viper.GetString("gateway.endpoint"), pb.RegisterUserServiceHandlerFromEndpoint),
 		),
 		server.WithHandler("/swagger/", NewSwaggerHandler(viper.GetString("gateway.swaggerFile"))),
 	)
@@ -131,12 +130,12 @@ func ServeExternal(logger *logrus.Logger) error {
 	if err != nil {
 		logger.Fatalln(err)
 	}
-	
+
 	httpL, err := net.Listen("tcp", fmt.Sprintf("%s:%s", viper.GetString("gateway.address"), viper.GetString("gateway.port")))
 	if err != nil {
 		logger.Fatalln(err)
 	}
-	
+
 	logger.Printf("serving gRPC at %s:%s", viper.GetString("server.address"), viper.GetString("server.port"))
 	logger.Printf("serving http at %s:%s", viper.GetString("gateway.address"), viper.GetString("gateway.port"))
 
@@ -179,7 +178,6 @@ func dbReady() error {
 	return db.Ping()
 }
 
-
 // setDBConnection sets the db connection string
 func setDBConnection() {
 	viper.Set("database.dsn", fmt.Sprintf("host=%s port=%s user=%s password=%s sslmode=%s dbname=%s",
@@ -187,4 +185,3 @@ func setDBConnection() {
 		viper.GetString("database.user"), viper.GetString("database.password"),
 		viper.GetString("database.ssl"), viper.GetString("database.name")))
 }
-

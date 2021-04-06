@@ -31,7 +31,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "201": {
+            "description": "POST operation response",
+            "schema": {
+              "$ref": "#/definitions/serviceUserOperationResponse"
+            }
+          }
+        }
       }
     },
     "/users/multi-get": {
@@ -50,7 +57,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "201": {
+            "description": "PUT operation response",
+            "schema": {
+              "$ref": "#/definitions/serviceMultiGetUsersResponse"
+            }
+          }
+        }
       }
     },
     "/users/{user_id}": {
@@ -67,7 +81,14 @@
             "required": true
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "GET operation response",
+            "schema": {
+              "$ref": "#/definitions/serviceUserOperationResponse"
+            }
+          }
+        }
       },
       "patch": {
         "tags": [
@@ -90,7 +111,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "201": {
+            "description": "PATCH operation response",
+            "schema": {
+              "$ref": "#/definitions/serviceUserOperationResponse"
+            }
+          }
+        }
       }
     },
     "/users/{user_id}/addresses": {
@@ -107,7 +135,14 @@
             "required": true
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "GET operation response",
+            "schema": {
+              "$ref": "#/definitions/serviceGetUserAddressesResponse"
+            }
+          }
+        }
       },
       "post": {
         "tags": [
@@ -130,7 +165,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "201": {
+            "description": "POST operation response",
+            "schema": {
+              "$ref": "#/definitions/serviceCreateUserAddressResponse"
+            }
+          }
+        }
       }
     },
     "/users/{user_id}/addresses/{address_id}": {
@@ -161,15 +203,22 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "201": {
+            "description": "PUT operation response",
+            "schema": {
+              "$ref": "#/definitions/serviceUpdateUserAddressResponse"
+            }
+          }
+        }
       }
     },
     "/users/{user_id}/identities": {
       "get": {
         "tags": [
-          "UserIdentityService"
+          "UserService"
         ],
-        "operationId": "UserIdentityServiceGetUserIdentities",
+        "operationId": "UserServiceGetUserIdentities",
         "parameters": [
           {
             "type": "string",
@@ -178,13 +227,20 @@
             "required": true
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "GET operation response",
+            "schema": {
+              "$ref": "#/definitions/serviceGetUserIdentitiesResponse"
+            }
+          }
+        }
       },
       "post": {
         "tags": [
-          "UserIdentityService"
+          "UserService"
         ],
-        "operationId": "UserIdentityServiceCreateUserIdentity",
+        "operationId": "UserServiceCreateUserIdentity",
         "parameters": [
           {
             "type": "string",
@@ -201,15 +257,22 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "201": {
+            "description": "POST operation response",
+            "schema": {
+              "$ref": "#/definitions/serviceCreateUserIdentityResponse"
+            }
+          }
+        }
       }
     },
     "/users/{user_id}/identities/{user_identity_id}": {
-      "put": {
+      "patch": {
         "tags": [
-          "UserIdentityService"
+          "UserService"
         ],
-        "operationId": "UserIdentityServiceUpdateUserIdentity",
+        "operationId": "UserServiceUpdateUserIdentity",
         "parameters": [
           {
             "type": "string",
@@ -232,7 +295,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "201": {
+            "description": "PATCH operation response",
+            "schema": {
+              "$ref": "#/definitions/serviceUpdateUserIdentityResponse"
+            }
+          }
+        }
       }
     },
     "/users/{user_id}/relations": {
@@ -249,7 +319,14 @@
             "required": true
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "GET operation response",
+            "schema": {
+              "$ref": "#/definitions/serviceGetUserRelationsResponse"
+            }
+          }
+        }
       },
       "post": {
         "tags": [
@@ -272,7 +349,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "201": {
+            "description": "POST operation response",
+            "schema": {
+              "$ref": "#/definitions/serviceLinkRelationResponse"
+            }
+          }
+        }
       }
     },
     "/users/{user_id}/relations/{relation_id}": {
@@ -303,7 +387,11 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
       }
     }
   },
@@ -328,6 +416,22 @@
         }
       }
     },
+    "serviceCreateUserAddressResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/serviceAddressDto"
+        }
+      }
+    },
+    "serviceCreateUserIdentityResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/serviceIdentityDto"
+        }
+      }
+    },
     "serviceGender": {
       "type": "string",
       "default": "unknown_gender",
@@ -337,6 +441,39 @@
         "female",
         "diverse"
       ]
+    },
+    "serviceGetUserAddressesResponse": {
+      "type": "object",
+      "properties": {
+        "addresses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/serviceAddressDto"
+          }
+        }
+      }
+    },
+    "serviceGetUserIdentitiesResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/serviceIdentityDto"
+          }
+        }
+      }
+    },
+    "serviceGetUserRelationsResponse": {
+      "type": "object",
+      "properties": {
+        "relations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/serviceRelationDto"
+          }
+        }
+      }
     },
     "serviceIdentityDto": {
       "type": "object",
@@ -364,6 +501,14 @@
         "phone"
       ]
     },
+    "serviceLinkRelationResponse": {
+      "type": "object",
+      "properties": {
+        "patient": {
+          "$ref": "#/definitions/serviceRelationDto"
+        }
+      }
+    },
     "serviceMultiGetUsersByExternalIdRequest": {
       "type": "object",
       "properties": {
@@ -371,6 +516,17 @@
           "type": "array",
           "items": {
             "type": "string"
+          }
+        }
+      }
+    },
+    "serviceMultiGetUsersResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/serviceUserDto"
           }
         }
       }
@@ -391,13 +547,6 @@
     "serviceRelationDto": {
       "type": "object",
       "properties": {
-        "display_order": {
-          "type": "string",
-          "format": "int64"
-        },
-        "patient_id": {
-          "type": "string"
-        },
         "relation": {
           "$ref": "#/definitions/serviceRelation"
         },
@@ -426,6 +575,22 @@
         },
         "user_id": {
           "type": "string"
+        }
+      }
+    },
+    "serviceUpdateUserAddressResponse": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/serviceAddressDto"
+        }
+      }
+    },
+    "serviceUpdateUserIdentityResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/serviceIdentityDto"
         }
       }
     },
@@ -462,6 +627,14 @@
         "weight": {
           "type": "number",
           "format": "double"
+        }
+      }
+    },
+    "serviceUserOperationResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/serviceUserDto"
         }
       }
     },

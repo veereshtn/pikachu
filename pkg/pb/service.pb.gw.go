@@ -225,7 +225,7 @@ func local_request_UserService_MultiGetUsersByExternalId_0(ctx context.Context, 
 
 }
 
-func request_UserIdentityService_CreateUserIdentity_0(ctx context.Context, marshaler runtime.Marshaler, client UserIdentityServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_UserService_CreateUserIdentity_0(ctx context.Context, marshaler runtime.Marshaler, client UserServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateUserIdentityRequest
 	var metadata runtime.ServerMetadata
 
@@ -260,7 +260,7 @@ func request_UserIdentityService_CreateUserIdentity_0(ctx context.Context, marsh
 
 }
 
-func local_request_UserIdentityService_CreateUserIdentity_0(ctx context.Context, marshaler runtime.Marshaler, server UserIdentityServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_UserService_CreateUserIdentity_0(ctx context.Context, marshaler runtime.Marshaler, server UserServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateUserIdentityRequest
 	var metadata runtime.ServerMetadata
 
@@ -295,7 +295,7 @@ func local_request_UserIdentityService_CreateUserIdentity_0(ctx context.Context,
 
 }
 
-func request_UserIdentityService_GetUserIdentities_0(ctx context.Context, marshaler runtime.Marshaler, client UserIdentityServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_UserService_GetUserIdentities_0(ctx context.Context, marshaler runtime.Marshaler, client UserServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetUserIdentitiesRequest
 	var metadata runtime.ServerMetadata
 
@@ -322,7 +322,7 @@ func request_UserIdentityService_GetUserIdentities_0(ctx context.Context, marsha
 
 }
 
-func local_request_UserIdentityService_GetUserIdentities_0(ctx context.Context, marshaler runtime.Marshaler, server UserIdentityServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_UserService_GetUserIdentities_0(ctx context.Context, marshaler runtime.Marshaler, server UserServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetUserIdentitiesRequest
 	var metadata runtime.ServerMetadata
 
@@ -349,7 +349,7 @@ func local_request_UserIdentityService_GetUserIdentities_0(ctx context.Context, 
 
 }
 
-func request_UserIdentityService_UpdateUserIdentity_0(ctx context.Context, marshaler runtime.Marshaler, client UserIdentityServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_UserService_UpdateUserIdentity_0(ctx context.Context, marshaler runtime.Marshaler, client UserServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq UpdateUserIdentityRequest
 	var metadata runtime.ServerMetadata
 
@@ -395,7 +395,7 @@ func request_UserIdentityService_UpdateUserIdentity_0(ctx context.Context, marsh
 
 }
 
-func local_request_UserIdentityService_UpdateUserIdentity_0(ctx context.Context, marshaler runtime.Marshaler, server UserIdentityServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_UserService_UpdateUserIdentity_0(ctx context.Context, marshaler runtime.Marshaler, server UserServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq UpdateUserIdentityRequest
 	var metadata runtime.ServerMetadata
 
@@ -971,16 +971,7 @@ func RegisterUserServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 
 	})
 
-	return nil
-}
-
-// RegisterUserIdentityServiceHandlerServer registers the http handlers for service UserIdentityService to "mux".
-// UnaryRPC     :call UserIdentityServiceServer directly.
-// StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
-// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterUserIdentityServiceHandlerFromEndpoint instead.
-func RegisterUserIdentityServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, server UserIdentityServiceServer) error {
-
-	mux.Handle("POST", pattern_UserIdentityService_CreateUserIdentity_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_UserService_CreateUserIdentity_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -991,7 +982,7 @@ func RegisterUserIdentityServiceHandlerServer(ctx context.Context, mux *runtime.
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_UserIdentityService_CreateUserIdentity_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_UserService_CreateUserIdentity_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -999,11 +990,11 @@ func RegisterUserIdentityServiceHandlerServer(ctx context.Context, mux *runtime.
 			return
 		}
 
-		forward_UserIdentityService_CreateUserIdentity_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_UserService_CreateUserIdentity_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_UserIdentityService_GetUserIdentities_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_UserService_GetUserIdentities_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -1014,7 +1005,7 @@ func RegisterUserIdentityServiceHandlerServer(ctx context.Context, mux *runtime.
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_UserIdentityService_GetUserIdentities_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_UserService_GetUserIdentities_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -1022,11 +1013,11 @@ func RegisterUserIdentityServiceHandlerServer(ctx context.Context, mux *runtime.
 			return
 		}
 
-		forward_UserIdentityService_GetUserIdentities_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_UserService_GetUserIdentities_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("PUT", pattern_UserIdentityService_UpdateUserIdentity_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("PATCH", pattern_UserService_UpdateUserIdentity_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -1037,7 +1028,7 @@ func RegisterUserIdentityServiceHandlerServer(ctx context.Context, mux *runtime.
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_UserIdentityService_UpdateUserIdentity_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_UserService_UpdateUserIdentity_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -1045,7 +1036,7 @@ func RegisterUserIdentityServiceHandlerServer(ctx context.Context, mux *runtime.
 			return
 		}
 
-		forward_UserIdentityService_UpdateUserIdentity_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_UserService_UpdateUserIdentity_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -1326,6 +1317,66 @@ func RegisterUserServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 
 	})
 
+	mux.Handle("POST", pattern_UserService_CreateUserIdentity_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_UserService_CreateUserIdentity_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_UserService_CreateUserIdentity_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_UserService_GetUserIdentities_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_UserService_GetUserIdentities_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_UserService_GetUserIdentities_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("PATCH", pattern_UserService_UpdateUserIdentity_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_UserService_UpdateUserIdentity_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_UserService_UpdateUserIdentity_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	return nil
 }
 
@@ -1337,6 +1388,12 @@ var (
 	pattern_UserService_GetUserByExternalId_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1}, []string{"users", "user_id"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_UserService_MultiGetUsersByExternalId_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"users", "multi-get"}, "", runtime.AssumeColonVerbOpt(true)))
+
+	pattern_UserService_CreateUserIdentity_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"users", "user_id", "identities"}, "", runtime.AssumeColonVerbOpt(true)))
+
+	pattern_UserService_GetUserIdentities_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"users", "user_id", "identities"}, "", runtime.AssumeColonVerbOpt(true)))
+
+	pattern_UserService_UpdateUserIdentity_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"users", "user_id", "identities", "user_identity_id"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (
@@ -1347,123 +1404,12 @@ var (
 	forward_UserService_GetUserByExternalId_0 = runtime.ForwardResponseMessage
 
 	forward_UserService_MultiGetUsersByExternalId_0 = runtime.ForwardResponseMessage
-)
 
-// RegisterUserIdentityServiceHandlerFromEndpoint is same as RegisterUserIdentityServiceHandler but
-// automatically dials to "endpoint" and closes the connection when "ctx" gets done.
-func RegisterUserIdentityServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
-	conn, err := grpc.Dial(endpoint, opts...)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		if err != nil {
-			if cerr := conn.Close(); cerr != nil {
-				grpclog.Infof("Failed to close conn to %s: %v", endpoint, cerr)
-			}
-			return
-		}
-		go func() {
-			<-ctx.Done()
-			if cerr := conn.Close(); cerr != nil {
-				grpclog.Infof("Failed to close conn to %s: %v", endpoint, cerr)
-			}
-		}()
-	}()
+	forward_UserService_CreateUserIdentity_0 = runtime.ForwardResponseMessage
 
-	return RegisterUserIdentityServiceHandler(ctx, mux, conn)
-}
+	forward_UserService_GetUserIdentities_0 = runtime.ForwardResponseMessage
 
-// RegisterUserIdentityServiceHandler registers the http handlers for service UserIdentityService to "mux".
-// The handlers forward requests to the grpc endpoint over "conn".
-func RegisterUserIdentityServiceHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-	return RegisterUserIdentityServiceHandlerClient(ctx, mux, NewUserIdentityServiceClient(conn))
-}
-
-// RegisterUserIdentityServiceHandlerClient registers the http handlers for service UserIdentityService
-// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "UserIdentityServiceClient".
-// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "UserIdentityServiceClient"
-// doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
-// "UserIdentityServiceClient" to call the correct interceptors.
-func RegisterUserIdentityServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux, client UserIdentityServiceClient) error {
-
-	mux.Handle("POST", pattern_UserIdentityService_CreateUserIdentity_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_UserIdentityService_CreateUserIdentity_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_UserIdentityService_CreateUserIdentity_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
-	mux.Handle("GET", pattern_UserIdentityService_GetUserIdentities_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_UserIdentityService_GetUserIdentities_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_UserIdentityService_GetUserIdentities_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
-	mux.Handle("PUT", pattern_UserIdentityService_UpdateUserIdentity_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_UserIdentityService_UpdateUserIdentity_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_UserIdentityService_UpdateUserIdentity_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
-	return nil
-}
-
-var (
-	pattern_UserIdentityService_CreateUserIdentity_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"users", "user_id", "identities"}, "", runtime.AssumeColonVerbOpt(true)))
-
-	pattern_UserIdentityService_GetUserIdentities_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"users", "user_id", "identities"}, "", runtime.AssumeColonVerbOpt(true)))
-
-	pattern_UserIdentityService_UpdateUserIdentity_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"users", "user_id", "identities", "user_identity_id"}, "", runtime.AssumeColonVerbOpt(true)))
-)
-
-var (
-	forward_UserIdentityService_CreateUserIdentity_0 = runtime.ForwardResponseMessage
-
-	forward_UserIdentityService_GetUserIdentities_0 = runtime.ForwardResponseMessage
-
-	forward_UserIdentityService_UpdateUserIdentity_0 = runtime.ForwardResponseMessage
+	forward_UserService_UpdateUserIdentity_0 = runtime.ForwardResponseMessage
 )
 
 // RegisterUserAddressServiceHandlerFromEndpoint is same as RegisterUserAddressServiceHandler but

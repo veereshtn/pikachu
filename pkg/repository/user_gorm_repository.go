@@ -2,34 +2,35 @@ package repository
 
 import (
 	"errors"
+	"github.com/kutty-kumar/db_commons/model"
 	"pikachu/pkg/domain"
 )
 
 type UserGormRepository struct {
-	BaseDao
+	db_commons.BaseDao
 }
 
-func NewUserGormRepository(dao BaseDao) UserGormRepository {
+func NewUserGormRepository(dao db_commons.BaseDao) UserGormRepository {
 	return UserGormRepository{
 		dao,
 	}
 }
 
 func (u *UserGormRepository) Create(user *domain.User) (error, *domain.User) {
-	err, base := u.persistence.Create(user, u.ExternalIdSetter)
-	return err, base.(*domain.User)
+	err, base := u.Create(user)
+	return err, interface{}(base).(*domain.User)
 }
 
 func (u *UserGormRepository) Update(id string, user *domain.User) (error, *domain.User) {
-	err, base := u.persistence.Update(id, user, u.factory.GetMapping("user"))
+	err, base := u.Update(id, user)
 	if err != nil {
 		return err, nil
 	}
-	return err, base.(*domain.User)
+	return err, interface{}(base).(*domain.User)
 }
 
 func (u *UserGormRepository) FindByExternalId(id string) (error, *domain.User) {
-	err, base := u.persistence.GetByExternalId(id, u.factory.GetMapping("user"))
+	err, base := u.GetByExternalId(id)
 	if base != nil {
 		return err, base.(*domain.User)
 	}
@@ -38,7 +39,7 @@ func (u *UserGormRepository) FindByExternalId(id string) (error, *domain.User) {
 
 func (u *UserGormRepository) MultiGetByExternalIds(ids []string) (error, []domain.User) {
 	var userSlice []domain.User
-	err, sqlSlice := u.persistence.MultiGetByExternalId(ids, u.factory.GetMapping("user"))
+	err, sqlSlice := u.MultiGetByExternalId(ids)
 	if err != nil {
 		return err, nil
 	}
@@ -54,12 +55,4 @@ func (u *UserGormRepository) handleError(user *domain.User, err error) (error, *
 		return err, nil
 	}
 	return nil, user
-}
-
-func (u *UserGormRepository) UpdateIdentity(userId string, identityId string, identity *domain.Identity) (error, *domain.Identity) {
-	panic("implement me")
-}
-
-func (u *UserGormRepository) ListIdentities(userId string) (error, []domain.Identity) {
-	panic("implement me")
 }

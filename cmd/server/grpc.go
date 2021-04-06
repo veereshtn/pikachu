@@ -68,27 +68,21 @@ func NewGRPCServer(logger *logrus.Logger, dbConnectionString string) (*grpc.Serv
 		return &domain.Identity{}
 	})
 
-	repository := db_commons.NewGORMRepository(db, *domainFactory, func(externalId string, base db_commons.Base) db_commons.Base {
+	externalIdSetter := func(externalId string, base db_commons.Base) db_commons.Base {
 		base.SetExternalId(externalId)
 		return base
-	})
+	}
+	userBaseDao := db_commons.NewBaseGORMDao(db, domainFactory.GetMapping("user"), externalIdSetter)
 
-	baseDao := r.NewBaseDao(repository, db, *domainFactory, func(externalId string, base db_commons.Base) db_commons.Base {
-		base.SetExternalId(externalId)
-		return base
-	})
-	userRepository := r.NewUserGormRepository(baseDao)
-	identityRepository := r.NewIdentityGormRepository(baseDao)
+	identityBaseDao := db_commons.NewBaseGORMDao(db, domainFactory.GetMapping("identity"), externalIdSetter)
+	identityRepository := r.NewIdentityGormRepository(identityBaseDao)
 	// register service implementation with the grpcServer
-	userService := svc.UserService{
-		Repository: &userRepository,
-	}
-	identityService := svc.IdentityService{
-		IdentityRepository: &identityRepository,
-	}
+	userBaseSvc := db_commons.NewBaseSvc(userBaseDao)
+	identityBaseSvc := db_commons.NewBaseSvc(identityBaseDao)
+	identityService := svc.NewIdentityService(identityBaseSvc, &identityRepository)
+	userService := svc.NewUserService(userBaseSvc, identityService)
 
 	pb.RegisterUserServiceServer(grpcServer, &userService)
-	pb.RegisterUserIdentityServiceServer(grpcServer, &identityService)
 	return grpcServer, nil
 }
 

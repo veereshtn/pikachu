@@ -2,13 +2,22 @@ package svc
 
 import (
 	"context"
+	"github.com/kutty-kumar/db_commons/model"
 	"pikachu/pkg/domain"
 	"pikachu/pkg/pb"
 	"pikachu/pkg/repository"
 )
 
 type IdentityService struct {
+	db_commons.BaseSvc
 	IdentityRepository repository.IdentityRepository
+}
+
+func NewIdentityService(baseSvc db_commons.BaseSvc, identityRepository repository.IdentityRepository) IdentityService {
+	return IdentityService{
+		baseSvc,
+		identityRepository,
+	}
 }
 
 func (is *IdentityService) CreateUserIdentity(ctx context.Context, req *pb.CreateUserIdentityRequest) (*pb.CreateUserIdentityResponse, error) {
