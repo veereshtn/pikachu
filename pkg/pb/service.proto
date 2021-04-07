@@ -65,6 +65,13 @@ message IdentityDto {
     string external_id = 4;
 }
 
+message UserAttributeDao {
+    string attribute_key = 1;
+    string attribute_value = 2;
+    Status status = 3;
+    string external_id = 4;
+}
+
 message RelationDto {
     Status status = 1;
     Relation relation = 3;

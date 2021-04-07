@@ -12,16 +12,17 @@ import (
 
 type User struct {
 	db_commons.BaseDomain
-	FirstName   string
-	LastName    string
-	Gender      pb.Gender
-	DateOfBirth time.Time
-	Identities  []Identity `gorm:"foreignkey:UserID;association_foreignkey:ExternalId"`
-	Addresses   []Address  `gorm:"foreignkey:UserID;association_foreignkey:ExternalId"`
-	Relations   []Relation `gorm:"foreignkey:UserID;association_foreignkey:ExternalId"`
-	Age         int64
-	Height      float64
-	Weight      float64
+	FirstName      string
+	LastName       string
+	Gender         pb.Gender
+	DateOfBirth    time.Time
+	Identities     []Identity      `gorm:"foreignkey:UserID;association_foreignkey:ExternalId"`
+	Addresses      []Address       `gorm:"foreignkey:UserID;association_foreignkey:ExternalId"`
+	Relations      []Relation      `gorm:"foreignkey:UserID;association_foreignkey:ExternalId"`
+	UserAttributes []UserAttribute `gorm:"foreignkey:UserID;association_foreignkey:ExternalId"`
+	Age            int64
+	Height         float64
+	Weight         float64
 }
 
 func (u *User) GetName() db_commons.DomainName {
