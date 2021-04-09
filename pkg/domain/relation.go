@@ -3,12 +3,13 @@ package domain
 import (
 	"database/sql"
 	"github.com/kutty-kumar/db_commons/model"
-	"pikachu/pkg/pb"
+	"github.com/kutty-kumar/ho_oh/pkg/core_v1"
+	"github.com/kutty-kumar/ho_oh/pkg/pikachu_v1"
 )
 
 type Relation struct {
 	db_commons.BaseDomain
-	RelationType pb.Relation
+	RelationType core_v1.Relation
 	UserID       string
 }
 
@@ -17,7 +18,7 @@ func (r *Relation) GetName() db_commons.DomainName {
 }
 
 func (r *Relation) ToDto() interface{} {
-	return pb.RelationDto{
+	return pikachu_v1.RelationDto{
 	}
 }
 

@@ -5,10 +5,10 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/kutty-kumar/ho_oh/pkg/pikachu_v1"
 	"log"
 	"net"
 	"net/http"
-	"pikachu/pkg/pb"
 	"strings"
 	"time"
 
@@ -118,7 +118,7 @@ func ServeExternal(logger *logrus.Logger) error {
 					requestid.DefaultRequestIDKey)),
 			),
 			gateway.WithServerAddress(fmt.Sprintf("%s:%s", viper.GetString("server.address"), viper.GetString("server.port"))),
-			gateway.WithEndpointRegistration(viper.GetString("gateway.endpoint"), pb.RegisterUserServiceHandlerFromEndpoint),
+			gateway.WithEndpointRegistration(viper.GetString("gateway.endpoint"), pikachu_v1.RegisterUserServiceHandlerFromEndpoint),
 		),
 		server.WithHandler("/swagger/", NewSwaggerHandler(viper.GetString("gateway.swaggerFile"))),
 	)

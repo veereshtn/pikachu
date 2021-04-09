@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"github.com/kutty-kumar/db_commons/model"
-	"pikachu/pkg/pb"
+	"github.com/kutty-kumar/ho_oh/pkg/pikachu_v1"
 )
 
 type Address struct {
@@ -22,7 +22,7 @@ func (a *Address) GetName() db_commons.DomainName {
 }
 
 func (a *Address) ToDto() interface{} {
-	return pb.AddressDto{
+	return pikachu_v1.AddressDto{
 		Country: a.Country,
 		Line1:   a.Line1,
 		Line2:   a.Line2,
@@ -32,7 +32,7 @@ func (a *Address) ToDto() interface{} {
 }
 
 func (a *Address) FillProperties(dto interface{}) db_commons.Base {
-	addressDto := dto.(pb.AddressDto)
+	addressDto := dto.(pikachu_v1.AddressDto)
 	a.Country = addressDto.Country
 	a.Line2 = addressDto.Line2
 	a.Line1 = addressDto.Line1
@@ -42,7 +42,7 @@ func (a *Address) FillProperties(dto interface{}) db_commons.Base {
 }
 
 func (a *Address) Merge(other interface{}) {
-	address := other.(pb.AddressDto)
+	address := other.(pikachu_v1.AddressDto)
 	if address.Line1 != "" {
 		a.Line1 = address.Line1
 	}

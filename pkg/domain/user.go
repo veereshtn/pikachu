@@ -6,7 +6,8 @@ import (
 	"fmt"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/kutty-kumar/db_commons/model"
-	"pikachu/pkg/pb"
+	"github.com/kutty-kumar/ho_oh/pkg/core_v1"
+	"github.com/kutty-kumar/ho_oh/pkg/pikachu_v1"
 	"time"
 )
 
@@ -14,7 +15,7 @@ type User struct {
 	db_commons.BaseDomain
 	FirstName   string
 	LastName    string
-	Gender      pb.Gender
+	Gender      core_v1.Gender
 	DateOfBirth time.Time
 	Identities  []Identity `gorm:"foreignkey:UserID;association_foreignkey:ExternalId"`
 	Addresses   []Address  `gorm:"foreignkey:UserID;association_foreignkey:ExternalId"`
@@ -30,7 +31,7 @@ func (u *User) GetName() db_commons.DomainName {
 
 func (u *User) ToDto() interface{} {
 	dobProto, _ := ptypes.TimestampProto(u.DateOfBirth)
-	return &pb.UserDto{
+	return &pikachu_v1.UserDto{
 		FirstName:   u.FirstName,
 		LastName:    u.LastName,
 		Gender:      u.Gender,
@@ -43,7 +44,7 @@ func (u *User) ToDto() interface{} {
 }
 
 func (u *User) FillProperties(dto interface{}) db_commons.Base {
-	userDto := dto.(pb.UserDto)
+	userDto := dto.(pikachu_v1.UserDto)
 	u.FirstName = userDto.FirstName
 	u.LastName = userDto.LastName
 	u.Gender = userDto.Gender

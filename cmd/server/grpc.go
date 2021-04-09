@@ -10,12 +10,12 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/kutty-kumar/db_commons/model"
+	"github.com/kutty-kumar/ho_oh/pkg/pikachu_v1"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
 	"pikachu/pkg/domain"
-	"pikachu/pkg/pb"
 	r "pikachu/pkg/repository"
 	"pikachu/pkg/svc"
 	"time"
@@ -82,7 +82,7 @@ func NewGRPCServer(logger *logrus.Logger, dbConnectionString string) (*grpc.Serv
 	identityService := svc.NewIdentityService(identityBaseSvc, &identityRepository)
 	userService := svc.NewUserService(userBaseSvc, identityService)
 
-	pb.RegisterUserServiceServer(grpcServer, &userService)
+	pikachu_v1.RegisterUserServiceServer(grpcServer, &userService)
 	return grpcServer, nil
 }
 

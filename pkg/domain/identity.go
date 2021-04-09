@@ -3,12 +3,13 @@ package domain
 import (
 	"database/sql"
 	"github.com/kutty-kumar/db_commons/model"
-	"pikachu/pkg/pb"
+	"github.com/kutty-kumar/ho_oh/pkg/core_v1"
+	"github.com/kutty-kumar/ho_oh/pkg/pikachu_v1"
 )
 
 type Identity struct {
 	db_commons.BaseDomain
-	IdentityType  pb.IdentityType
+	IdentityType  core_v1.IdentityType
 	IdentityValue string
 	UserID        string
 }
@@ -18,7 +19,7 @@ func (i *Identity) GetName() db_commons.DomainName {
 }
 
 func (i *Identity) ToDto() interface{} {
-	return pb.IdentityDto{
+	return pikachu_v1.IdentityDto{
 		IdentityType:  i.IdentityType,
 		IdentityValue: i.IdentityValue,
 		ExternalId:    i.ExternalId,
@@ -26,7 +27,7 @@ func (i *Identity) ToDto() interface{} {
 }
 
 func (i *Identity) FillProperties(dto interface{}) db_commons.Base {
-	identityDto := dto.(pb.IdentityDto)
+	identityDto := dto.(pikachu_v1.IdentityDto)
 	i.IdentityType = identityDto.IdentityType
 	i.IdentityValue = identityDto.IdentityValue
 	return i
