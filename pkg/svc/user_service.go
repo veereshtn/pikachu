@@ -10,11 +10,29 @@ import (
 
 type UserService struct {
 	db_commons.BaseSvc
-	IdentityService IdentityService
+	IdentityService      IdentityService
+	UserAttributeService UserAttributeService
 }
 
-func NewUserService(base db_commons.BaseSvc, identitySvc IdentityService) UserService {
-	return UserService{base, identitySvc}
+func (u *UserService) CreateUserAttribute(context.Context, *pb.CreateUserAttributeRequest) (*pb.CreateUserAttributeResponse, error) {
+	panic("implement me")
+}
+
+func (u *UserService) UpdateUserAttribute(context.Context, *pb.UpdateUserAttributeRequest) (*pb.UpdateUserAttributeResponse, error) {
+	panic("implement me")
+}
+
+func (u *UserService) GetUserAttributesByKey(context.Context, *pb.GetUserAttributeByKeyRequest) (*pb.GetUserAttributeByKeyResponse, error) {
+	panic("implement me")
+}
+
+func (u *UserService) GetUserAttributes(context.Context, *pb.GetUserAttributesRequest) (*pb.GetUserAttributesResponse, error) {
+	panic("implement me")
+}
+
+
+func NewUserService(base db_commons.BaseSvc, identitySvc IdentityService, userAttributeSvc UserAttributeService) UserService {
+	return UserService{base, identitySvc, userAttributeSvc}
 }
 
 func userOperationResponseMapper(dto *pb.UserDto) *pb.UserOperationResponse {
@@ -96,3 +114,5 @@ func (u *UserService) UpdateUserIdentity(ctx context.Context, req *pb.UpdateUser
 	}
 	return u.IdentityService.UpdateUserIdentity(ctx, req)
 }
+
+

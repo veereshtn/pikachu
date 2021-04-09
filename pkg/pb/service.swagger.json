@@ -213,6 +213,126 @@
         }
       }
     },
+    "/users/{user_id}/attributes": {
+      "get": {
+        "tags": [
+          "UserService"
+        ],
+        "operationId": "UserServiceGetUserAttributes",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "GET operation response",
+            "schema": {
+              "$ref": "#/definitions/serviceGetUserAttributesResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "UserService"
+        ],
+        "operationId": "UserServiceCreateUserAttribute",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/serviceUserAttributeDto"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "POST operation response",
+            "schema": {
+              "$ref": "#/definitions/serviceCreateUserAttributeResponse"
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/attributes/{attribute_key}": {
+      "get": {
+        "tags": [
+          "UserService"
+        ],
+        "operationId": "UserServiceGetUserAttributesByKey",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "attribute_key",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "GET operation response",
+            "schema": {
+              "$ref": "#/definitions/serviceGetUserAttributeByKeyResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "UserService"
+        ],
+        "operationId": "UserServiceUpdateUserAttribute",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "attribute_key",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/serviceUserAttributeDto"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "POST operation response",
+            "schema": {
+              "$ref": "#/definitions/serviceUpdateUserAttributeResponse"
+            }
+          }
+        }
+      }
+    },
     "/users/{user_id}/identities": {
       "get": {
         "tags": [
@@ -424,6 +544,14 @@
         }
       }
     },
+    "serviceCreateUserAttributeResponse": {
+      "type": "object",
+      "properties": {
+        "user_attribute": {
+          "$ref": "#/definitions/serviceUserAttributeDto"
+        }
+      }
+    },
     "serviceCreateUserIdentityResponse": {
       "type": "object",
       "properties": {
@@ -449,6 +577,25 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/serviceAddressDto"
+          }
+        }
+      }
+    },
+    "serviceGetUserAttributeByKeyResponse": {
+      "type": "object",
+      "properties": {
+        "user_attribute": {
+          "$ref": "#/definitions/serviceUserAttributeDto"
+        }
+      }
+    },
+    "serviceGetUserAttributesResponse": {
+      "type": "object",
+      "properties": {
+        "user_attributes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/serviceUserAttributeDto"
           }
         }
       }
@@ -586,11 +733,36 @@
         }
       }
     },
+    "serviceUpdateUserAttributeResponse": {
+      "type": "object",
+      "properties": {
+        "user_attribute": {
+          "$ref": "#/definitions/serviceUserAttributeDto"
+        }
+      }
+    },
     "serviceUpdateUserIdentityResponse": {
       "type": "object",
       "properties": {
         "response": {
           "$ref": "#/definitions/serviceIdentityDto"
+        }
+      }
+    },
+    "serviceUserAttributeDto": {
+      "type": "object",
+      "properties": {
+        "attribute_key": {
+          "type": "string"
+        },
+        "attribute_value": {
+          "type": "string"
+        },
+        "external_id": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/serviceStatus"
         }
       }
     },

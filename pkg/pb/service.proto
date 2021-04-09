@@ -65,7 +65,7 @@ message IdentityDto {
     string external_id = 4;
 }
 
-message UserAttributeDao {
+message UserAttributeDto {
     string attribute_key = 1;
     string attribute_value = 2;
     Status status = 3;
@@ -239,6 +239,45 @@ message DeleteUserRelationResponse {
     RelationDto relation = 1;
 }
 
+message CreateUserAttributeRequest {
+    string user_id = 1;
+    UserAttributeDto user_attribute = 2;
+}
+
+message CreateUserAttributeResponse {
+    UserAttributeDto user_attribute = 1;
+}
+
+message UpdateUserAttributeRequest {
+    string user_id = 1;
+    string attribute_key = 2;
+    UserAttributeDto user_attribute = 3;
+}
+
+message UpdateUserAttributeResponse {
+    UserAttributeDto user_attribute = 1;
+}
+
+
+message GetUserAttributeByKeyRequest {
+    string user_id = 1;
+    string attribute_key = 2;
+}
+
+message GetUserAttributeByKeyResponse {
+    UserAttributeDto user_attribute = 1;
+}
+
+
+message GetUserAttributesRequest {
+    string user_id = 1;
+}
+
+message GetUserAttributesResponse {
+    repeated UserAttributeDto user_attributes = 1;
+}
+
+
 service UserService {
 
     rpc CreateUser (CreateUserRequest) returns (UserOperationResponse) {
@@ -285,6 +324,32 @@ service UserService {
         option (google.api.http) = {
             patch: "/users/{user_id}/identities/{user_identity_id}"
             body: "payload"
+        };
+    }
+
+    rpc CreateUserAttribute (CreateUserAttributeRequest) returns (CreateUserAttributeResponse) {
+        option (google.api.http) = {
+            post: "/users/{user_id}/attributes"
+            body: "user_attribute"
+        };
+    }
+
+    rpc UpdateUserAttribute (UpdateUserAttributeRequest) returns (UpdateUserAttributeResponse) {
+        option (google.api.http) = {
+            post: "/users/{user_id}/attributes/{attribute_key}"
+            body: "user_attribute"
+        };
+    }
+
+    rpc GetUserAttributesByKey (GetUserAttributeByKeyRequest) returns (GetUserAttributeByKeyResponse) {
+        option (google.api.http) = {
+            get: "/users/{user_id}/attributes/{attribute_key}"
+        };
+    }
+
+    rpc GetUserAttributes (GetUserAttributesRequest) returns (GetUserAttributesResponse) {
+        option (google.api.http) = {
+            get: "/users/{user_id}/attributes"
         };
     }
 }

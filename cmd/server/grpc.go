@@ -83,8 +83,8 @@ func NewGRPCServer(logger *logrus.Logger, dbConnectionString string) (*grpc.Serv
 	identityBaseSvc := db_commons.NewBaseSvc(identityBaseDao)
 	userAttributeBaseSvc := db_commons.NewBaseSvc(userAttributeBaseDao)
 	identityService := svc.NewIdentityService(identityBaseSvc, &identityRepository)
-	userService := svc.NewUserService(userBaseSvc, identityService)
-	userAttributeService := svc.UserAttributeService{userAttributeBaseSvc, &userAttributeRepository}
+	userAttributeService := svc.NewUserAttributeService(userAttributeBaseSvc, &userAttributeRepository)
+	userService := svc.NewUserService(userBaseSvc, identityService, userAttributeService)
 
 	pb.RegisterUserServiceServer(grpcServer, &userService)
 	return grpcServer, nil

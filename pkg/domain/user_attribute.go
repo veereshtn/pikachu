@@ -9,8 +9,8 @@ import (
 type UserAttribute struct {
 	db_commons.BaseDomain
 	AttributeKey   string
-	AttributeValue    string
-	UserID        string
+	AttributeValue string
+	UserID         string
 }
 
 func (i *UserAttribute) GetName() db_commons.DomainName {
@@ -19,14 +19,14 @@ func (i *UserAttribute) GetName() db_commons.DomainName {
 
 func (i *UserAttribute) ToDto() interface{} {
 	return pb.UserAttributeDto{
-		AttributeKey:  i.AttributeKey,
+		AttributeKey:   i.AttributeKey,
 		AttributeValue: i.AttributeValue,
-		ExternalId:    i.ExternalId,
+		ExternalId:     i.ExternalId,
 	}
 }
 
 func (i *UserAttribute) FillProperties(dto interface{}) db_commons.Base {
-	userAttributeDto := dto.(pb.UserAttrbuteDto)
+	userAttributeDto := dto.(pb.UserAttributeDto)
 	i.AttributeKey = userAttributeDto.AttributeKey
 	i.AttributeValue = userAttributeDto.AttributeValue
 	return i

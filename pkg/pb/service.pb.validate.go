@@ -270,6 +270,79 @@ var _ interface {
 	ErrorName() string
 } = IdentityDtoValidationError{}
 
+// Validate checks the field values on UserAttributeDto with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *UserAttributeDto) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AttributeKey
+
+	// no validation rules for AttributeValue
+
+	// no validation rules for Status
+
+	// no validation rules for ExternalId
+
+	return nil
+}
+
+// UserAttributeDtoValidationError is the validation error returned by
+// UserAttributeDto.Validate if the designated constraints aren't met.
+type UserAttributeDtoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UserAttributeDtoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UserAttributeDtoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UserAttributeDtoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UserAttributeDtoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UserAttributeDtoValidationError) ErrorName() string { return "UserAttributeDtoValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UserAttributeDtoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUserAttributeDto.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UserAttributeDtoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UserAttributeDtoValidationError{}
+
 // Validate checks the field values on RelationDto with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
 // is returned.
@@ -3148,3 +3221,620 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteUserRelationResponseValidationError{}
+
+// Validate checks the field values on CreateUserAttributeRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CreateUserAttributeRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for UserId
+
+	if v, ok := interface{}(m.GetUserAttribute()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateUserAttributeRequestValidationError{
+				field:  "UserAttribute",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// CreateUserAttributeRequestValidationError is the validation error returned
+// by CreateUserAttributeRequest.Validate if the designated constraints aren't met.
+type CreateUserAttributeRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateUserAttributeRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateUserAttributeRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateUserAttributeRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateUserAttributeRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateUserAttributeRequestValidationError) ErrorName() string {
+	return "CreateUserAttributeRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateUserAttributeRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateUserAttributeRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateUserAttributeRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateUserAttributeRequestValidationError{}
+
+// Validate checks the field values on CreateUserAttributeResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CreateUserAttributeResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetUserAttribute()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateUserAttributeResponseValidationError{
+				field:  "UserAttribute",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// CreateUserAttributeResponseValidationError is the validation error returned
+// by CreateUserAttributeResponse.Validate if the designated constraints
+// aren't met.
+type CreateUserAttributeResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateUserAttributeResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateUserAttributeResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateUserAttributeResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateUserAttributeResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateUserAttributeResponseValidationError) ErrorName() string {
+	return "CreateUserAttributeResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateUserAttributeResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateUserAttributeResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateUserAttributeResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateUserAttributeResponseValidationError{}
+
+// Validate checks the field values on UpdateUserAttributeRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *UpdateUserAttributeRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for UserId
+
+	// no validation rules for AttributeKey
+
+	if v, ok := interface{}(m.GetUserAttribute()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateUserAttributeRequestValidationError{
+				field:  "UserAttribute",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// UpdateUserAttributeRequestValidationError is the validation error returned
+// by UpdateUserAttributeRequest.Validate if the designated constraints aren't met.
+type UpdateUserAttributeRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateUserAttributeRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateUserAttributeRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateUserAttributeRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateUserAttributeRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateUserAttributeRequestValidationError) ErrorName() string {
+	return "UpdateUserAttributeRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateUserAttributeRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateUserAttributeRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateUserAttributeRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateUserAttributeRequestValidationError{}
+
+// Validate checks the field values on UpdateUserAttributeResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *UpdateUserAttributeResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetUserAttribute()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateUserAttributeResponseValidationError{
+				field:  "UserAttribute",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// UpdateUserAttributeResponseValidationError is the validation error returned
+// by UpdateUserAttributeResponse.Validate if the designated constraints
+// aren't met.
+type UpdateUserAttributeResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateUserAttributeResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateUserAttributeResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateUserAttributeResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateUserAttributeResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateUserAttributeResponseValidationError) ErrorName() string {
+	return "UpdateUserAttributeResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateUserAttributeResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateUserAttributeResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateUserAttributeResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateUserAttributeResponseValidationError{}
+
+// Validate checks the field values on GetUserAttributeByKeyRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetUserAttributeByKeyRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for UserId
+
+	// no validation rules for AttributeKey
+
+	return nil
+}
+
+// GetUserAttributeByKeyRequestValidationError is the validation error returned
+// by GetUserAttributeByKeyRequest.Validate if the designated constraints
+// aren't met.
+type GetUserAttributeByKeyRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetUserAttributeByKeyRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetUserAttributeByKeyRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetUserAttributeByKeyRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetUserAttributeByKeyRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetUserAttributeByKeyRequestValidationError) ErrorName() string {
+	return "GetUserAttributeByKeyRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetUserAttributeByKeyRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetUserAttributeByKeyRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetUserAttributeByKeyRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetUserAttributeByKeyRequestValidationError{}
+
+// Validate checks the field values on GetUserAttributeByKeyResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetUserAttributeByKeyResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetUserAttribute()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetUserAttributeByKeyResponseValidationError{
+				field:  "UserAttribute",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// GetUserAttributeByKeyResponseValidationError is the validation error
+// returned by GetUserAttributeByKeyResponse.Validate if the designated
+// constraints aren't met.
+type GetUserAttributeByKeyResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetUserAttributeByKeyResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetUserAttributeByKeyResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetUserAttributeByKeyResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetUserAttributeByKeyResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetUserAttributeByKeyResponseValidationError) ErrorName() string {
+	return "GetUserAttributeByKeyResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetUserAttributeByKeyResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetUserAttributeByKeyResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetUserAttributeByKeyResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetUserAttributeByKeyResponseValidationError{}
+
+// Validate checks the field values on GetUserAttributesRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetUserAttributesRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for UserId
+
+	return nil
+}
+
+// GetUserAttributesRequestValidationError is the validation error returned by
+// GetUserAttributesRequest.Validate if the designated constraints aren't met.
+type GetUserAttributesRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetUserAttributesRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetUserAttributesRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetUserAttributesRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetUserAttributesRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetUserAttributesRequestValidationError) ErrorName() string {
+	return "GetUserAttributesRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetUserAttributesRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetUserAttributesRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetUserAttributesRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetUserAttributesRequestValidationError{}
+
+// Validate checks the field values on GetUserAttributesResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetUserAttributesResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for idx, item := range m.GetUserAttributes() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetUserAttributesResponseValidationError{
+					field:  fmt.Sprintf("UserAttributes[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// GetUserAttributesResponseValidationError is the validation error returned by
+// GetUserAttributesResponse.Validate if the designated constraints aren't met.
+type GetUserAttributesResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetUserAttributesResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetUserAttributesResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetUserAttributesResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetUserAttributesResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetUserAttributesResponseValidationError) ErrorName() string {
+	return "GetUserAttributesResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetUserAttributesResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetUserAttributesResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetUserAttributesResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetUserAttributesResponseValidationError{}
