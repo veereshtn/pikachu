@@ -10,7 +10,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/kutty-kumar/db_commons/model"
-	"github.com/kutty-kumar/ho_oh/pkg/pikachu_v1"
+	"github.com/kutty-kumar/ho_oh/pikachu_v1"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
@@ -75,12 +75,16 @@ func NewGRPCServer(logger *logrus.Logger, dbConnectionString string) (*grpc.Serv
 	userBaseDao := db_commons.NewBaseGORMDao(db, domainFactory.GetMapping("user"), externalIdSetter)
 
 	identityBaseDao := db_commons.NewBaseGORMDao(db, domainFactory.GetMapping("identity"), externalIdSetter)
+	userAttributeBaseDao := db_commons.NewBaseGORMDao(db, domainFactory.GetMapping("user_attributes"), externalIdSetter)
 	identityRepository := r.NewIdentityGormRepository(identityBaseDao)
+	userAttributeRepository := r.NewUserAttributeGormRepository(userAttributeBaseDao)
 	// register service implementation with the grpcServer
 	userBaseSvc := db_commons.NewBaseSvc(userBaseDao)
 	identityBaseSvc := db_commons.NewBaseSvc(identityBaseDao)
+	userAttributeBaseSvc := db_commons.NewBaseSvc(userAttributeBaseDao)
 	identityService := svc.NewIdentityService(identityBaseSvc, &identityRepository)
-	userService := svc.NewUserService(userBaseSvc, identityService)
+	userAttributeService := svc.NewUserAttributeService(userAttributeBaseSvc, &userAttributeRepository)
+	userService := svc.NewUserService(userBaseSvc, identityService, userAttributeService)
 
 	pikachu_v1.RegisterUserServiceServer(grpcServer, &userService)
 	return grpcServer, nil

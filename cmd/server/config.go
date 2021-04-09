@@ -19,13 +19,13 @@ const (
 	// Database 
 	defaultDatabaseEnable   = true
 	// DSN example: "postgres://postgres:postgres@postgres:5432/atlas_db?sslmode=disable"
-	defaultDatabaseDSN      = "root:@tcp(0.0.0.0:3306)/pikachu?parseTime=true"
+	defaultDatabaseDSN      = "root:my-secret-pw@tcp(0.0.0.0:3306)/pikachu?parseTime=true"
 	defaultDatabaseType     = "mysql"
 	defaultDatabaseAddress  = "0.0.0.0"
 	defaultDatabasePort     = "3306"
 	defaultDatabaseName     = "pikachu"
 	defaultDatabaseUser     = "root"
-	defaultDatabasePassword = ""
+	defaultDatabasePassword = "my-secret-pw"
 	defaultDatabaseSSL      = "disable"
 	defaultDatabaseOption   = ""
 

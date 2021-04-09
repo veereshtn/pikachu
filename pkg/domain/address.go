@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"github.com/kutty-kumar/db_commons/model"
-	"github.com/kutty-kumar/ho_oh/pkg/pikachu_v1"
+	"github.com/kutty-kumar/ho_oh/pikachu_v1"
 )
 
 type Address struct {

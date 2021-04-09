@@ -10,7 +10,7 @@ require (
 	github.com/infobloxopen/atlas-app-toolkit v0.22.1
 	github.com/jinzhu/gorm v1.9.16
 	github.com/kutty-kumar/db_commons v0.0.0-20210405124335-4b20ae4127b5
-	github.com/kutty-kumar/ho_oh v0.0.0-20210409013237-aea40749b53c // indirect
+	github.com/kutty-kumar/ho_oh v0.0.0-20210409062057-e437d5e35ca2
 	github.com/prometheus/client_golang v1.8.0
 	github.com/sirupsen/logrus v1.7.0
 	github.com/spf13/afero v1.4.1 // indirect

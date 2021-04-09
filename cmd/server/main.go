@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"github.com/kutty-kumar/ho_oh/pkg/pikachu_v1"
+	"github.com/kutty-kumar/ho_oh/pikachu_v1"
 	"log"
 	"net"
 	"net/http"

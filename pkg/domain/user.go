@@ -6,23 +6,24 @@ import (
 	"fmt"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/kutty-kumar/db_commons/model"
-	"github.com/kutty-kumar/ho_oh/pkg/core_v1"
-	"github.com/kutty-kumar/ho_oh/pkg/pikachu_v1"
+	"github.com/kutty-kumar/ho_oh/core_v1"
+	"github.com/kutty-kumar/ho_oh/pikachu_v1"
 	"time"
 )
 
 type User struct {
 	db_commons.BaseDomain
-	FirstName   string
-	LastName    string
-	Gender      core_v1.Gender
-	DateOfBirth time.Time
-	Identities  []Identity `gorm:"foreignkey:UserID;association_foreignkey:ExternalId"`
-	Addresses   []Address  `gorm:"foreignkey:UserID;association_foreignkey:ExternalId"`
-	Relations   []Relation `gorm:"foreignkey:UserID;association_foreignkey:ExternalId"`
-	Age         int64
-	Height      float64
-	Weight      float64
+	FirstName      string
+	LastName       string
+	Gender         core_v1.Gender
+	DateOfBirth    time.Time
+	Identities     []Identity      `gorm:"foreignkey:UserID;association_foreignkey:ExternalId"`
+	Addresses      []Address       `gorm:"foreignkey:UserID;association_foreignkey:ExternalId"`
+	Relations      []Relation      `gorm:"foreignkey:UserID;association_foreignkey:ExternalId"`
+	UserAttributes []UserAttribute `gorm:"foreignkey:UserID;association_foreignkey:ExternalId"`
+	Age            int64
+	Height         float64
+	Weight         float64
 }
 
 func (u *User) GetName() db_commons.DomainName {

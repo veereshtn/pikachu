@@ -3,8 +3,8 @@ package domain
 import (
 	"database/sql"
 	"github.com/kutty-kumar/db_commons/model"
-	"github.com/kutty-kumar/ho_oh/pkg/core_v1"
-	"github.com/kutty-kumar/ho_oh/pkg/pikachu_v1"
+	"github.com/kutty-kumar/ho_oh/core_v1"
+	"github.com/kutty-kumar/ho_oh/pikachu_v1"
 )
 
 type Relation struct {

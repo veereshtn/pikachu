@@ -4,17 +4,71 @@ import (
 	"context"
 	"errors"
 	"github.com/kutty-kumar/db_commons/model"
-	"github.com/kutty-kumar/ho_oh/pkg/pikachu_v1"
+	"github.com/kutty-kumar/ho_oh/pikachu_v1"
 	"pikachu/pkg/domain"
 )
 
 type UserService struct {
 	db_commons.BaseSvc
-	IdentityService IdentityService
+	IdentityService      IdentityService
+	UserAttributeService UserAttributeService
 }
 
-func NewUserService(base db_commons.BaseSvc, identitySvc IdentityService) UserService {
-	return UserService{base, identitySvc}
+func (u *UserService) CreateUserAttribute(ctx context.Context, req *pikachu_v1.CreateUserAttributeRequest) (*pikachu_v1.CreateUserAttributeResponse, error) {
+	err, user := u.FindByExternalId(req.UserId)
+	if err != nil || user == nil {
+		return nil, err
+	}
+	userAttribute := domain.UserAttribute{}
+	userAttribute.FillProperties(req.UserAttribute)
+	err, userAttr := u.UserAttributeService.Create(&userAttribute)
+	if err != nil {
+		return nil, err
+	}
+	return &pikachu_v1.CreateUserAttributeResponse{UserAttribute: userAttr.ToDto().(*pikachu_v1.UserAttributeDto)},nil
+}
+
+func (u *UserService) UpdateUserAttribute(ctx context.Context, req *pikachu_v1.UpdateUserAttributeRequest) (*pikachu_v1.UpdateUserAttributeResponse, error) {
+	err, user := u.FindByExternalId(req.UserId)
+	if err != nil || user == nil {
+		return nil, err
+	}
+	userAttribute := domain.UserAttribute{}
+	userAttribute.FillProperties(req.UserAttribute)
+	err, userAttr := u.UserAttributeService.UpdateUserAttribute(user.GetExternalId(), &userAttribute)
+	if err != nil {
+		return nil, err
+	}
+	return &pikachu_v1.UpdateUserAttributeResponse{UserAttribute: userAttr.ToDto().(*pikachu_v1.UserAttributeDto)}, nil
+}
+
+func (u *UserService) GetUserAttributesByKey(ctx context.Context, req *pikachu_v1.GetUserAttributeByKeyRequest) (*pikachu_v1.GetUserAttributeByKeyResponse, error) {
+	err, attr := u.UserAttributeService.GetUserAttributesByKey(req.UserId, req.AttributeKey)
+	if err != nil {
+		return nil, err
+	}
+	return &pikachu_v1.GetUserAttributeByKeyResponse{UserAttribute: attr.ToDto().(*pikachu_v1.UserAttributeDto)}, nil
+}
+
+func (u *UserService) GetUserAttributes(ctx context.Context, req *pikachu_v1.GetUserAttributesRequest) (*pikachu_v1.GetUserAttributesResponse, error) {
+	err, user := u.FindByExternalId(req.UserId)
+	if err != nil {
+		return nil, err
+	}
+	err, attrs := u.UserAttributeService.ListUserAttributes(user.GetExternalId())
+	if err != nil {
+		return nil, err
+	}
+	var attrDtos []*pikachu_v1.UserAttributeDto
+	for _, attr := range attrs {
+		attrDtos = append(attrDtos, attr.ToDto().(*pikachu_v1.UserAttributeDto))
+	}
+	return &pikachu_v1.GetUserAttributesResponse{UserAttributes: attrDtos},nil
+}
+
+
+func NewUserService(base db_commons.BaseSvc, identitySvc IdentityService, userAttributeSvc UserAttributeService) UserService {
+	return UserService{base, identitySvc, userAttributeSvc}
 }
 
 func userOperationResponseMapper(dto *pikachu_v1.UserDto) *pikachu_v1.UserOperationResponse {
@@ -96,3 +150,5 @@ func (u *UserService) UpdateUserIdentity(ctx context.Context, req *pikachu_v1.Up
 	}
 	return u.IdentityService.UpdateUserIdentity(ctx, req)
 }
+
+
