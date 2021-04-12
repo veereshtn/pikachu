@@ -1,7 +1,5 @@
 pipeline {
-  agent {
-    label 'ubuntu_docker_label'
-  }
+  agent any
   tools {
     go "Go 1.13"
   }
