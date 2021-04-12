@@ -1,0 +1,41 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: pikachu
+  namespace: backend
+  annotations:
+    description: pikachu
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: pikachu
+        env: qa
+        region: us-west-1
+      annotations:
+        version: 0.0.1
+    spec:
+      containers:
+        - name: pikcahu
+          image: localhost:5000/product-store:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "1500m"
+              memory: "6Gi"
+            limits:
+              cpu: "2000m"
+              memory: "8Gi"
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /monitor
+              port: 8080
+            initialDelaySeconds: 15

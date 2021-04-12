@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pikachu
+  namespace: backend
+  labels:
+    app: pikachu
+    env: qa
+    region: us-west-1
+spec:
+  type: ClusterIP
+  selector:
+    app: pikachu
+    env: qa
+  ports:
+    - name: "http"
+      port: 80
+      targetPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pikachu
+  namespace: backend
+  labels:
+    app: pikachu
+    env: qa
+    region: us-west-1
+spec:
+  type: LoadBalancer
+  selector:
+    app: pikachu
+    env: qa
+  ports:
+    - port: 80
+      targetPort: 8080
